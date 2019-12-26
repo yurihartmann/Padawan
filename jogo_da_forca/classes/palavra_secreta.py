@@ -3,28 +3,27 @@
 class PalavraSecreta():
 
     def __init__(self, palavra_secreta: str):
-        self.__palavra_secreta = palavra_secreta.upper()
-        self.__palavra_descoberta = "_" * len(palavra_secreta)
+        self._palavra_secreta = palavra_secreta.upper()
+        self._palavra_descoberta = "_" * len(palavra_secreta)
 
     @property
     def palavra_secreta(self):
-        return self.__palavra_secreta
+        return self._palavra_secreta
 
     @property
     def palavra_descoberta(self):
-        return self.__palavra_descoberta
+        return self._palavra_descoberta
 
+    @palavra_descoberta.setter
+    def palavra_descoberta(self, palavra_descoberta):
+        self._palavra_descoberta = palavra_descoberta
 
-    def verificacao_letra(self, letra_tentativa: str):
-        tem_letra = False
+    def tem_letra(self, letra: str):
+        return True if letra.upper() in self.palavra_secreta else False
+
+    def substitui_letra_na_palavra(self, letra_tentativa: str):
         letra_tentativa = letra_tentativa.upper()
 
-        for i in range(len(self.__palavra_secreta)):
-            if letra_tentativa == self.__palavra_secreta[i]:
-                self.__palavra_descoberta = self.__palavra_descoberta[:i] + letra_tentativa + self.__palavra_descoberta[i+1:]
-                tem_letra = True
-
-        return tem_letra
-
-    def ganhou(self):
-        return True if '_' not in self.palavra_descoberta else False
+        for i in range(len(self.palavra_secreta)):
+            if letra_tentativa == self.palavra_secreta[i]:
+                self.palavra_descoberta = self.palavra_descoberta[:i] + letra_tentativa + self.palavra_descoberta[i+1:]
