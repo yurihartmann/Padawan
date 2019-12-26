@@ -7,14 +7,3 @@ def quer_continuar():
             return False
         else:
             print('Opção inválida!')
-
-def convert_carta_in_value(carta):
-    try:
-        n = int(carta)
-    except:
-        if carta == 'A':
-            return 1
-        elif carta in 'JQK':
-            return 10
-    else:
-        return n
