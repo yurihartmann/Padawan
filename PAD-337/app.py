@@ -28,7 +28,7 @@ while continuar:
     print(f"Suas cartas são {cartas_jogador}")
     print(f"Soma das cartas é: {soma_jogador}")
 
-    if len(cartas) == 0:
+    if len(cartas) == 0 or soma_jogador >= 21:
         break
     else:
         continuar = functions.quer_continuar()
