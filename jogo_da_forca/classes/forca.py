@@ -36,7 +36,7 @@ class Forca:
         while True:
             letra = input("Digite uma letra: ")
             if len(letra) == 1 and letra.isalpha():
-                self._letra_escolida = letra
+                self._letra_escolhida = letra
                 break
             else:
                 print('Digite apenas uma letra!!')
@@ -51,6 +51,8 @@ class Forca:
         return True if '_' not in self.palavra.palavra_descoberta else False
 
     def fim_de_jogo(self):
+        print(f'A Palavra era: {self.palavra.palavra_descoberta}')
+
         if not self.tem_vida():
             print('Voce Perdeu')
             print('Acabou suas vidas..')
