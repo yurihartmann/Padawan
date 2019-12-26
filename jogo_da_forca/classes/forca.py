@@ -3,12 +3,12 @@ from jogo_da_forca.classes.palavra_secreta import PalavraSecreta
 
 
 class Forca:
-    _PALAVRAS = ['banana', 'jabuticaba', 'pitanga', 'mirtilo', 'morango', 'abacaxi', 'cereja']
+    _LISTA_PALAVRA_DISPONIVEIS = ['banana', 'jabuticaba', 'pitanga', 'mirtilo', 'morango', 'abacaxi', 'cereja']
     _vidas = 8
-    _letra_escolida = ' '
+    _letra_escolhida = ' '
 
     def __init__(self):
-        self._palavra = PalavraSecreta(random.choice(self._PALAVRAS))
+        self._palavra = PalavraSecreta(random.choice(self._LISTA_PALAVRA_DISPONIVEIS))
 
     @property
     def palavra(self):
@@ -18,19 +18,19 @@ class Forca:
         print(format(' Jogo da forca ', '=^50'))
 
         while not self.ganhou() and self.tem_vida():
-            self.print_dados()
+            self.print_status_jogo()
             self.pega_letra_escolida_pelo_jogador()
 
-            if self.palavra.tem_letra(self._letra_escolida):
-                self.palavra.substitui_letra_na_palavra(self._letra_escolida)
+            if self.palavra.tem_letra(self._letra_escolhida):
+                self.palavra.substitui_letra_na_palavra(self._letra_escolhida)
             else:
                 self.perde_uma_vida()
 
         self.fim_de_jogo()
 
-    def print_dados(self):
+    def print_status_jogo(self):
         print("Palavra Secreta: " + self.palavra.palavra_descoberta)
-        print(f"Voce tem {self._vidas} vida(s)..")
+        print(f"Voce tem {self._vidas} vida(s)...")
 
     def pega_letra_escolida_pelo_jogador(self):
         while True:
