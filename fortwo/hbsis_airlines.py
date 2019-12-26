@@ -23,7 +23,7 @@ Requisitos:
 6 - Deve ser publicado no AzureDevOps
 '''
 
-from SmartFortwo import SmartFortwo
+from fortwo.smart_fortwo import SmartFortwo
 
 terminal = ['Piloto', 'Oficial 1', 'Oficial 2', 'Chefe de serviço', 'Comissaria 1', 'Comissaria 2', 'Policial', 'Prisioneiro']
 aviao =[]
