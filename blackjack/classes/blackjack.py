@@ -1,33 +1,59 @@
-from blackjack.classes.baralho import Baralho
+from blackjack.classes.deck import Deck
+from blackjack.classes.cards import Ace
 
-
-class BlackJack(Baralho):
-
-    soma_jogador = 0
-    cartas_jogador = []
+class BlackJack(Deck):
 
     def __init__(self):
         super().__init__()
-        self.embaralhar()
+        self.shuffle_deck()
+        self._points = 0
+        self._player_cards = []
 
-    def pegar_carta(self):
-        carta = self.cartas.pop(0)
-        self.soma_jogador += self.valor_da_carta(carta)
-        self.cartas_jogador.append(carta)
-        return carta
+    def start(self):
+        print(format(' BlackJack ', '=^50'))
 
-    def valor_da_carta(self, carta):
-        try:
-            n = int(carta)
-        except:
-            if len(self.cartas_jogador) == 0 and carta == 'A':
-                return 11
-            elif carta == 'A':
-                return 1
-            elif carta in 'JQK':
-                return 10
-        else:
-            return n
+        while not self.has_21_points() and self.want_to_continue():
+            self.get_card_in_deck()
+            self.calc_player_points()
+            self.print_status_game()
 
-    def alcancou_21(self):
-        return True if self.soma_jogador >= 21 else False
+        self.end_game()
+
+    def print_status_game(self):
+        print(f"Suas cartas são ", end='')
+        for card in self._player_cards:
+            print(f"{card} - ", end='')
+        print()
+        print(f"Soma das cartas é: {self._points}")
+
+    def get_card_in_deck(self):
+        card = self._cards.pop(0)
+        self._player_cards.append(card)
+
+    def calc_player_points(self):
+        cont = 0
+        for card in self._player_cards:
+            if cont == 0 and card is Ace():
+                cont += 11
+            else:
+                cont += card.get_value()
+
+        self._points = cont
+
+    def has_21_points(self):
+        return True if self._points >= 21 else False
+
+    def want_to_continue(self):
+        while True:
+            chosse = input('Quer pegar uma carta? (S/N) ').upper()
+            if chosse == 'S':
+                return True
+            elif chosse == 'N':
+                return False
+            else:
+                print('Opção inválida!')
+
+    def end_game(self):
+        print(f'Voce finalizou com {self._points} pontos !!!')
+
+
